@@ -46,10 +46,10 @@ namespace Algs
 
                 if (x + 1 < Program.layout.GetLength(1))
                 {
-                    if ((Program.layout[y, x + 1] != "1") && (Program.hiddenLayout[y, x + 1] != "1"))
+                    if ((Program.layout[y, x + 1] != MazeGen.wall) && (Program.hiddenLayout[y, x + 1] != MazeGen.wall))
                     {
 
-                        Program.hiddenLayout[y, x + 1] = "1";
+                        Program.hiddenLayout[y, x + 1] = MazeGen.wall;
                         tList.Add(new node(item.steps + 1, y, x + 1, item));
 
 
@@ -59,10 +59,10 @@ namespace Algs
                 if (x - 1 >= 0)
                 {
 
-                    if ((Program.layout[y, x - 1] != "1") && (Program.hiddenLayout[y, x - 1] != "1"))
+                    if ((Program.layout[y, x - 1] != MazeGen.wall) && (Program.hiddenLayout[y, x - 1] != MazeGen.wall))
                     {
 
-                        Program.hiddenLayout[y, x - 1] = "1";
+                        Program.hiddenLayout[y, x - 1] = MazeGen.wall;
                         tList.Add(new node(item.steps + 1, y, x - 1, item));
 
 
@@ -71,10 +71,10 @@ namespace Algs
                 if (y + 1 < Program.layout.GetLength(0))
                 {
 
-                    if ((Program.layout[y + 1, x] != "1") && (Program.hiddenLayout[y + 1, x] != "1"))
+                    if ((Program.layout[y + 1, x] != MazeGen.wall) && (Program.hiddenLayout[y + 1, x] != MazeGen.wall))
                     {
 
-                        Program.hiddenLayout[y + 1, x] = "1";
+                        Program.hiddenLayout[y + 1, x] = MazeGen.wall;
                         tList.Add(new node(item.steps + 1, y + 1, x, item));
 
 
@@ -82,10 +82,10 @@ namespace Algs
                 }
                 if (y - 1 >= 0)
                 {
-                    if ((Program.layout[y - 1, x] != "1") && (Program.hiddenLayout[y - 1, x] != "1"))
+                    if ((Program.layout[y - 1, x] != MazeGen.wall) && (Program.hiddenLayout[y - 1, x] != MazeGen.wall))
                     {
 
-                        Program.hiddenLayout[y - 1, x] = "1";
+                        Program.hiddenLayout[y - 1, x] = MazeGen.wall;
                         tList.Add(new node(item.steps + 1, y - 1, x, item));
 
 

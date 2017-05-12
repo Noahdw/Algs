@@ -14,9 +14,9 @@ namespace Algs
         private static List<Stem> tempStems = new List<Stem>();
         private static int Rows;
         private static int Cols;
-        private static int reviveChance = 50; // 10%
-        private static string wall = "1";
-        private static string path = "0";
+        private static int reviveChance = 10; // 10%
+        public static string wall = "1";
+        public static string path = "o";
        private static  Random rand = new Random();
         public static void CreateMaze(int rows, int cols)
         {
@@ -40,7 +40,7 @@ namespace Algs
             // mazeLayout[rows - 2, cols - 1] = "9";
 
             //Number of times to run
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 1200; i++)
             {
                 AddStem();
                 tempStems.Clear();
@@ -52,11 +52,11 @@ namespace Algs
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    Console.Write(string.Format("{0} ", mazeLayout[i, j]));
+                    Console.Write(string.Format("{0}", mazeLayout[i, j]));
                 }
-                Console.Write(Environment.NewLine + Environment.NewLine);
+                Console.Write(Environment.NewLine);
             }
-            Console.WriteLine("-----------------");
+            Console.WriteLine("-------------------------------------------------");
         }
 
         private static bool ValidateMove(int Y, int X)

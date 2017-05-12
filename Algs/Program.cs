@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Algs
 {
@@ -12,55 +14,64 @@ namespace Algs
         // static node final;
 
         static int walls = 1; // Frequency of a wall
-        static int h = 15;
-        static int c = 15;
+        static int h = 50;
+        static int c = 100;
+
         public static string[,] layout = new string[h, c];
         public static string[,] hiddenLayout = new string[h, c];
         public static int rowLength = layout.GetLength(0);
         public static int colLength = layout.GetLength(1);
         public static Random rand = new Random();
         public static node finalNode;
-
+        private static int highest = 0;
         static void Main()
         {
-            MazeGen.CreateMaze(h, c);
-            layout = MazeGen.mazeLayout;
-            //builds the random layout
-            CreateBoard();
+           
+            while (highest < 190)
+            {
+                MazeGen.CreateMaze(h, c);
+                layout = MazeGen.mazeLayout;
+                //builds the random layout
+                CreateBoard();
+                node master = new node(0, 0, 0, null);
 
-            node master = new node(0, 0, 0, null);
+                master.nodelist.Add(new node(1, 1, 0, master));
+                master.nodelist.Add(new node(1, 0, 1, master));
+                // BreadthFirst.addNode(master);
+                BreadthFirst.addNode(master);
+                highest = finalNode.steps;
+            }
+           
 
-            master.nodelist.Add(new node(1, 1, 0, master));
-            master.nodelist.Add(new node(1, 0, 1, master));
-            // BreadthFirst.addNode(master);
-            BreadthFirst.addNode(master);
-            node highest = new node(1000, 0, 0, null);
-
+        
             RollOut(finalNode);
+           
             for (int i = 0; i < rowLength; i++)
             {
                 for (int j = 0; j < colLength; j++)
                 {
-                    Console.Write(string.Format("{0} ", layout[i, j]));
+                   
+                    Console.Write(string.Format("{0}", layout[i, j]));
+                    
                 }
-                Console.Write(Environment.NewLine + Environment.NewLine);
+                Console.Write(Environment.NewLine);
             }
-            Console.Write(finalNode.steps);
+            
+            Console.Write(highest);
+      
+
             Console.ReadLine();
 
 
         }
-        static int i = 2;
+
         static void RollOut(node t)
         {
 
             try
             {
-                if (i > 9)
-                {
-                    i = 2;
-                }
-                layout[t.Y, t.X] = "*";
+               
+                layout[t.Y, t.X] = " ";
                 RollOut(t.previous);
             }
             catch (Exception)
