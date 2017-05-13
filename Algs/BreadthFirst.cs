@@ -8,8 +8,8 @@ namespace Algs
 {
     class BreadthFirst
     {
-        static bool done = false;
-        public static node addNode(node mList)
+        private  bool done = false;
+        public  node BeginSearch(node mList)
         {
 
             node loopNode = new node(0, 0, 0, null);
@@ -104,7 +104,8 @@ namespace Algs
 
             }
             loopNode.nodelist = tList;
-            addNode(loopNode);
+            BeginSearch(loopNode);
+
 
             return null;
         }

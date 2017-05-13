@@ -9,8 +9,8 @@ namespace Algs
 {
     class DepthFirst
     {
-        static bool done = false;
-        public static node addNode(node mList)
+         bool done = false;
+        public  node BeginSearch(node mList)
         {
 
             foreach (node item in mList.nodelist)
@@ -96,7 +96,7 @@ namespace Algs
                 {
 
                 }
-                addNode(item);
+                BeginSearch(item);
 
 
             }

@@ -14,11 +14,13 @@ namespace Algs
         // static node final;
 
         static int walls = 1; // Frequency of a wall
-        static int h = 50;
-        static int c = 100;
+        
+        public static int runs = 0;
+        static int c = 75;
+        static int h = 75;
 
         public static string[,] layout = new string[h, c];
-        public static string[,] hiddenLayout = new string[h, c];
+        public static string[,] hiddenLayout;
         public static int rowLength = layout.GetLength(0);
         public static int colLength = layout.GetLength(1);
         public static Random rand = new Random();
@@ -27,19 +29,40 @@ namespace Algs
         static void Main()
         {
            
-            while (highest < 190)
+            while (highest < 300)
             {
-                MazeGen.CreateMaze(h, c);
-                layout = MazeGen.mazeLayout;
-                //builds the random layout
-                CreateBoard();
+                hiddenLayout = new string [ h, c ];
+                MazeGen maze = new MazeGen();
+                BreadthFirst breadth = new BreadthFirst();
+                DepthFirst depth = new DepthFirst();
+                maze.CreateMaze(h, c);
+                layout = maze.mazeLayout;
+
+                CreateBoard(); // usless, just sets maze goal
                 node master = new node(0, 0, 0, null);
 
                 master.nodelist.Add(new node(1, 1, 0, master));
                 master.nodelist.Add(new node(1, 0, 1, master));
-                // BreadthFirst.addNode(master);
-                BreadthFirst.addNode(master);
+                // BreadthFirst.BeginSearch(master);
+                breadth.BeginSearch(master);
+               // BreadthFirst.done = false;
                 highest = finalNode.steps;
+
+                RollOut(finalNode);
+
+                for (int i = 0; i < rowLength; i++)
+                {
+                    for (int j = 0; j < colLength; j++)
+                    {
+
+                        Console.Write(string.Format("{0}", layout[i, j]));
+
+                    }
+                    Console.Write(Environment.NewLine);
+                }
+                ImageHelper image = new ImageHelper();
+                image.CreateImage(layout,5);
+                runs++;
             }
            
 
@@ -71,7 +94,7 @@ namespace Algs
             try
             {
                
-                layout[t.Y, t.X] = " ";
+                layout[t.Y, t.X] = "2";
                 RollOut(t.previous);
             }
             catch (Exception)
@@ -105,29 +128,7 @@ namespace Algs
 
         }
         static bool temp = false;
-        static bool HasOverflow(node t, int x, int y)
-        {
-            try
-            {
-                if (t.previous == null)
-                {
-                    return false;
-                }
-                else if (t.previous.X == x && t.previous.Y == y)
-                {
-                    temp = true;
-                }
-
-                HasOverflow(t.previous, x, y);
-            }
-            catch (Exception)
-            {
-
-
-            }
-            return temp;
-
-        }
+   
 
     }
 

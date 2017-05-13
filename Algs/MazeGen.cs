@@ -8,17 +8,17 @@ namespace Algs
 {
     class MazeGen
     {
-        public static string[,] mazeLayout;
-        private static List<Stem> allStems = new List<Stem>();
-        private static List<Stem> aliveStems = new List<Stem>();
-        private static List<Stem> tempStems = new List<Stem>();
-        private static int Rows;
-        private static int Cols;
-        private static int reviveChance = 10; // 10%
+        public  string[,] mazeLayout;
+        private  List<Stem> allStems = new List<Stem>();
+        private  List<Stem> aliveStems = new List<Stem>();
+        private  List<Stem> tempStems = new List<Stem>();
+        private  int Rows;
+        private  int Cols;
+        private  int reviveChance = 10; // 10%
         public static string wall = "1";
-        public static string path = "o";
-       private static  Random rand = new Random();
-        public static void CreateMaze(int rows, int cols)
+        public static string path = "0";
+       private   Random rand = new Random();
+        public  void CreateMaze(int rows, int cols)
         {
             Rows = rows;
             Cols = cols;
@@ -40,7 +40,7 @@ namespace Algs
             // mazeLayout[rows - 2, cols - 1] = "9";
 
             //Number of times to run
-            for (int i = 0; i < 1200; i++)
+            for (int i = 0; i < (1700); i++)
             {
                 AddStem();
                 tempStems.Clear();
@@ -48,18 +48,18 @@ namespace Algs
             }
 
 
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    Console.Write(string.Format("{0}", mazeLayout[i, j]));
-                }
-                Console.Write(Environment.NewLine);
-            }
-            Console.WriteLine("-------------------------------------------------");
+            //for (int i = 0; i < rows; i++)
+            //{
+            //    for (int j = 0; j < cols; j++)
+            //    {
+            //        Console.Write(string.Format("{0}", mazeLayout[i, j]));
+            //    }
+            //    Console.Write(Environment.NewLine);
+            //}
+            //Console.WriteLine("-------------------------------------------------");
         }
 
-        private static bool ValidateMove(int Y, int X)
+        private  bool ValidateMove(int Y, int X)
         {
           
             if (X - 1 >= 0 && X + 1 <= Cols-1 )
@@ -102,7 +102,7 @@ namespace Algs
             return true;
         }
 
-        private static void AddStem()
+        private  void AddStem()
         {
             foreach (var stem in aliveStems)
             {
@@ -177,7 +177,7 @@ namespace Algs
             aliveStems = tempStems.ToList();
         }
 
-        private static void ReviveStems()
+        private  void ReviveStems()
         {
             foreach (var stem in allStems)
             {
