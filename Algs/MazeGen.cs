@@ -14,7 +14,7 @@ namespace Algs
         private  List<Stem> tempStems = new List<Stem>();
         private  int Rows;
         private  int Cols;
-        private  int reviveChance = 10; // 10%
+        private  int reviveChance = 15; // 10%
         public static string wall = "1";
         public static string path = "0";
        private   Random rand = new Random();
@@ -40,7 +40,7 @@ namespace Algs
             // mazeLayout[rows - 2, cols - 1] = "9";
 
             //Number of times to run
-            for (int i = 0; i < (1700); i++)
+            for (int i = 0; i < (1900); i++)
             {
                 AddStem();
                 tempStems.Clear();
@@ -61,27 +61,57 @@ namespace Algs
 
         private  bool ValidateMove(int Y, int X)
         {
-          
-            if (X - 1 >= 0 && X + 1 <= Cols-1 )
+            if (mazeLayout[Y, X] == path)
+            {
+                return false;
+            }
+            if (X - 1 >= 0 && X + 1 < Cols)
             {
                 //normal case
-                if (mazeLayout[Y,X-1] == path || mazeLayout[Y, X + 1] == path)
+                if (mazeLayout[Y, X - 1] == path || mazeLayout[Y, X + 1] == path)
                 {
                     return false;
                 }
-                
-                
+
             }
             else
             {
                 //edge case
-                if (mazeLayout[Y, X] == path)
+
+                if (Y - 1 >= 0)
                 {
-                    return false;
+                    if (mazeLayout[Y - 1, X] == path)
+                    {
+                        return false;
+                    }
+                }
+                if (Y + 1 < Rows)
+                {
+                    if (mazeLayout[Y + 1, X] == path)
+                    {
+                        return false;
+                    }
+                }
+                if (X - 1 >= 0)
+                {
+                    //normal case
+                    if (mazeLayout[Y, X - 1] == path)
+                    {
+                        return false;
+                    }
+                }
+                if ( X + 1 < Cols)
+                {
+                    //normal case
+                    if (mazeLayout[Y, X + 1] == path)
+                    {
+                        return false;
+                    }
+
                 }
             }
 
-            if (Y - 1 >= 0 && Y + 1 <= Rows-1)
+            if (Y - 1 >= 0 && Y + 1 < Rows)
             {
                 //normal case
                 if (mazeLayout[Y-1, X] == path || mazeLayout[Y+1, X] == path)
@@ -89,18 +119,46 @@ namespace Algs
                     return false;
                 }
             
-
             }
             else
             {
                 //edge case
-                if (mazeLayout[Y, X] == path)
+             
+                if (X - 1 >= 0)
                 {
-                    return false;
+                    if (mazeLayout[Y, X-1] == path)
+                    {
+                        return false;
+                    }
+                }
+                if (X + 1 <= Rows - 1)
+                {
+                    if (mazeLayout[Y, X+1] == path)
+                    {
+                        return false;
+                    }
+                }
+                if (Y - 1 >= 0)
+                {
+                    //normal case
+                    if (mazeLayout[Y - 1, X] == path)
+                    {
+                        return false;
+                    }
+
+                }
+                if ( Y + 1 < Rows)
+                {
+                    //normal case
+                    if (mazeLayout[Y + 1, X] == path)
+                    {
+                        return false;
+                    }
+
                 }
             }
             return true;
-        }
+       }
 
         private  void AddStem()
         {
@@ -168,6 +226,11 @@ namespace Algs
                         mazeLayout[Y, X] = path;
                         allStems.Add(new Stem(Y, X));
                         tempStems.Add(new Stem(Y, X));
+
+                    }
+                    else
+                    {
+                       
                     }
 
                     mazeLayout[Y - 1, X] = path; // set back to its original state
@@ -203,7 +266,7 @@ namespace Algs
         }
         public int y { get; set; }
         public int x { get; set; }
-        public bool isAlive { get; set; }
+        public bool IsAlive { get; set; }
       
     }
 

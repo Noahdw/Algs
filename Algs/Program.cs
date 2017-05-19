@@ -16,33 +16,35 @@ namespace Algs
         static int walls = 1; // Frequency of a wall
         
         public static int runs = 0;
-        static int c = 75;
-        static int h = 75;
+        static int c = 100;
+        static int h = 100;
 
         public static string[,] layout = new string[h, c];
         public static string[,] hiddenLayout;
         public static int rowLength = layout.GetLength(0);
         public static int colLength = layout.GetLength(1);
         public static Random rand = new Random();
-        public static node finalNode;
+        public static Node finalNode;
         private static int highest = 0;
         static void Main()
         {
            
-            while (highest < 300)
+            while (true)
             {
                 hiddenLayout = new string [ h, c ];
                 MazeGen maze = new MazeGen();
                 BreadthFirst breadth = new BreadthFirst();
                 DepthFirst depth = new DepthFirst();
+                SpiralGen spiral = new SpiralGen();
+                spiral.CreateSpiral(1000,1000);
                 maze.CreateMaze(h, c);
                 layout = maze.mazeLayout;
 
                 CreateBoard(); // usless, just sets maze goal
-                node master = new node(0, 0, 0, null);
+                Node master = new Node(0, 0, 0, null);
 
-                master.nodelist.Add(new node(1, 1, 0, master));
-                master.nodelist.Add(new node(1, 0, 1, master));
+                master.nodelist.Add(new Node(1, 1, 0, master));
+                master.nodelist.Add(new Node(1, 0, 1, master));
                 // BreadthFirst.BeginSearch(master);
                 breadth.BeginSearch(master);
                // BreadthFirst.done = false;
@@ -50,18 +52,18 @@ namespace Algs
 
                 RollOut(finalNode);
 
-                for (int i = 0; i < rowLength; i++)
-                {
-                    for (int j = 0; j < colLength; j++)
-                    {
+                //for (int i = 0; i < rowLength; i++)
+                //{
+                //    for (int j = 0; j < colLength; j++)
+                //    {
 
-                        Console.Write(string.Format("{0}", layout[i, j]));
+                //        Console.Write(string.Format("{0}", layout[i, j]));
 
-                    }
-                    Console.Write(Environment.NewLine);
-                }
+                //    }
+                //    Console.Write(Environment.NewLine);
+                //}
                 ImageHelper image = new ImageHelper();
-                image.CreateImage(layout,5);
+                image.CreateImage(layout,20,"maze");
                 runs++;
             }
            
@@ -69,16 +71,16 @@ namespace Algs
         
             RollOut(finalNode);
            
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
-                {
+            //for (int i = 0; i < rowLength; i++)
+            //{
+            //    for (int j = 0; j < colLength; j++)
+            //    {
                    
-                    Console.Write(string.Format("{0}", layout[i, j]));
+            //        Console.Write(string.Format("{0}", layout[i, j]));
                     
-                }
-                Console.Write(Environment.NewLine);
-            }
+            //    }
+            //    Console.Write(Environment.NewLine);
+            //}
             
             Console.Write(highest);
       
@@ -88,7 +90,7 @@ namespace Algs
 
         }
 
-        static void RollOut(node t)
+        static void RollOut(Node t)
         {
 
             try
@@ -136,12 +138,12 @@ namespace Algs
 
 
 
-class node
+class Node
 {
     public int X, Y, steps;
-    public List<node> nodelist = new List<node>();
-    public node previous;
-    public node(int st, int y, int x, node p)
+    public List<Node> nodelist = new List<Node>();
+    public Node previous;
+    public Node(int st, int y, int x, Node p)
     {
         Y = y;
         X = x;

@@ -10,12 +10,12 @@ namespace Algs
     class DepthFirst
     {
          bool done = false;
-        public  node BeginSearch(node mList)
+        public  Node BeginSearch(Node mList)
         {
 
-            foreach (node item in mList.nodelist)
+            foreach (Node item in mList.nodelist)
             {
-                List<node> tList = new List<node>();
+                List<Node> tList = new List<Node>();
                 int x = item.X;
                 int y = item.Y;
 
@@ -30,7 +30,7 @@ namespace Algs
                 {
                     System.Diagnostics.Debug.WriteLine("found 9 with " + item.steps + " steps.");
 
-                    tList.Add(new node(item.steps + 1, y, x, item));
+                    tList.Add(new Node(item.steps + 1, y, x, item));
                     item.nodelist = tList;
 
                     Program.finalNode = item;
@@ -50,7 +50,7 @@ namespace Algs
                     {
 
                         Program.hiddenLayout[y, x + 1] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y, x + 1, item));
+                        tList.Add(new Node(item.steps + 1, y, x + 1, item));
 
 
                     }
@@ -63,7 +63,7 @@ namespace Algs
                     {
 
                         Program.hiddenLayout[y, x - 1] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y, x - 1, item));
+                        tList.Add(new Node(item.steps + 1, y, x - 1, item));
 
 
                     }
@@ -75,7 +75,7 @@ namespace Algs
                     {
 
                         Program.hiddenLayout[y + 1, x] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y + 1, x, item));
+                        tList.Add(new Node(item.steps + 1, y + 1, x, item));
 
 
                     }
@@ -86,7 +86,7 @@ namespace Algs
                     {
 
                         Program.hiddenLayout[y - 1, x] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y - 1, x, item));
+                        tList.Add(new Node(item.steps + 1, y - 1, x, item));
 
 
                     }

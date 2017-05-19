@@ -14,8 +14,9 @@ namespace Algs
     //This class is responsible for creating and saving an image of a completed maze
     class ImageHelper
     {
+        Random rand = new Random();
         private int stride = 4;
-        public void CreateImage(string[,] layout, int multiple)
+        public void CreateImage(string[,] layout, int multiple,string id)
         {
             Bitmap bmp = new Bitmap(layout.GetLength(1) * multiple, layout.GetLength(0) * multiple, PixelFormat.Format32bppRgb);
             Rectangle grayRect = new Rectangle(0, 0, bmp.Width, bmp.Height);
@@ -68,7 +69,7 @@ namespace Algs
             bmp.UnlockBits(data);
 
             MemoryStream ms = new MemoryStream();
-            bmp.Save(@"C:\Users\Puter\Pictures\maze\maze" + Program.runs +".jpg", ImageFormat.Png);
+            bmp.Save(@"C:\Users\Puter\Pictures\maze\" + id + Program.runs +".jpg", ImageFormat.Png);
             ms.Position = 0;
 
 

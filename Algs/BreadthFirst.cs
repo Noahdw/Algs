@@ -9,12 +9,12 @@ namespace Algs
     class BreadthFirst
     {
         private  bool done = false;
-        public  node BeginSearch(node mList)
+        public  Node BeginSearch(Node mList)
         {
 
-            node loopNode = new node(0, 0, 0, null);
-            List<node> tList = new List<node>();
-            foreach (node item in mList.nodelist)
+            Node loopNode = new Node(0, 0, 0, null);
+            List<Node> tList = new List<Node>();
+            foreach (Node item in mList.nodelist)
             {
 
                 int x = item.X;
@@ -31,7 +31,7 @@ namespace Algs
                 {
                     System.Diagnostics.Debug.WriteLine("found 9 with " + item.steps + " steps.");
 
-                    tList.Add(new node(item.steps + 1, y, x, item));
+                    tList.Add(new Node(item.steps + 1, y, x, item));
                     item.nodelist = tList;
 
                     Program.finalNode = item;
@@ -57,7 +57,7 @@ namespace Algs
                     if ((Program.layout[y, x + 1] != MazeGen.wall) && (Program.hiddenLayout[y, x + 1] != MazeGen.wall))
                     {
                         Program.hiddenLayout[y, x + 1] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y, x + 1, item));
+                        tList.Add(new Node(item.steps + 1, y, x + 1, item));
 
 
                     }
@@ -69,7 +69,7 @@ namespace Algs
                     if ((Program.layout[y, x - 1] != MazeGen.wall) && (Program.hiddenLayout[y, x - 1] != MazeGen.wall))
                     {
                         Program.hiddenLayout[y, x - 1] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y, x - 1, item));
+                        tList.Add(new Node(item.steps + 1, y, x - 1, item));
 
 
                     }
@@ -80,7 +80,7 @@ namespace Algs
                     if ((Program.layout[y + 1, x] != MazeGen.wall) && (Program.hiddenLayout[y + 1, x] != MazeGen.wall))
                     {
                         Program.hiddenLayout[y + 1, x] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y + 1, x, item));
+                        tList.Add(new Node(item.steps + 1, y + 1, x, item));
 
 
                     }
@@ -92,7 +92,7 @@ namespace Algs
 
 
                         Program.hiddenLayout[y - 1, x] = MazeGen.wall;
-                        tList.Add(new node(item.steps + 1, y - 1, x, item));
+                        tList.Add(new Node(item.steps + 1, y - 1, x, item));
 
 
                     }
